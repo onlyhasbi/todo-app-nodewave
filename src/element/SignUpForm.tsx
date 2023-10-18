@@ -60,7 +60,6 @@ function SignUpForm() {
         <Grid container columnSpacing={{ xs: 1, md: 2 }} rowSpacing={3}>
           <Grid item md={6}>
             <TextField
-              ref={ref}
               variant="outlined"
               size="small"
               name="first_name"
