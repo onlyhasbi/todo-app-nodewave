@@ -19,27 +19,53 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useToggle } from '@/hooks/useToggle';
 import { useRouter } from 'next/router';
+import { useHandleChange } from '@/hooks/useHandleChange';
+import { SignUpPayload } from '@/types/signup';
+
+const defaultValue = {
+  first_name: '',
+  last_name: '',
+  country_code: '+62',
+  phone_number: '',
+  country: '',
+  email: '',
+  password: '',
+  confirm_password: '',
+  about: '',
+};
 
 function SignUpForm() {
-  const [form, setForm] = React.useState('');
+  const { payload, setPayload, handleChange } =
+    useHandleChange<SignUpPayload>(defaultValue);
+
+  const handleSelectChange = (e: SelectChangeEvent) => {
+    setPayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   const password = useToggle();
   const confirmPassword = useToggle();
 
   const router = useRouter();
   const handleSignIn = () => router.push('/signin');
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setForm(event.target.value);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    window.alert(JSON.stringify(payload));
+    setPayload(defaultValue);
   };
 
   return (
     <Card sx={{ minWidth: 260, maxWidth: 560, width: 560 }}>
-      <form style={{ padding: 30 }}>
+      <form style={{ padding: 30 }} onSubmit={handleSubmit}>
         <Grid container columnSpacing={{ xs: 1, md: 2 }} rowSpacing={3}>
           <Grid item md={6}>
             <TextField
+              ref={ref}
               variant="outlined"
               size="small"
+              name="first_name"
+              value={payload.first_name}
+              onChange={handleChange}
               label="First Name"
               sx={{ width: '100%' }}
             />
@@ -48,6 +74,9 @@ function SignUpForm() {
             <TextField
               variant="outlined"
               size="small"
+              name="last_name"
+              value={payload.last_name}
+              onChange={handleChange}
               label="Last Name"
               sx={{ width: '100%' }}
             />
@@ -57,12 +86,17 @@ function SignUpForm() {
               <TextField
                 variant="outlined"
                 size="small"
-                value="+62"
+                name="country_code"
+                value={payload.country_code}
+                onChange={handleChange}
                 sx={{ width: '30%' }}
               />
               <TextField
                 variant="outlined"
                 size="small"
+                name="phone_number"
+                value={payload.phone_number}
+                onChange={handleChange}
                 label="Phone Number"
                 sx={{ xs: { width: '70%' }, md: { width: '100%' } }}
               />
@@ -74,9 +108,10 @@ function SignUpForm() {
               <Select
                 labelId="country"
                 id="countries"
-                value="indonesia"
+                value={payload.country}
+                name="country"
                 label="Country"
-                onChange={handleChange}
+                onChange={handleSelectChange}
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -93,6 +128,9 @@ function SignUpForm() {
                 id="email"
                 label="Mail Address"
                 type="text"
+                name="email"
+                value={payload.email}
+                onChange={handleChange}
                 endAdornment={
                   <InputAdornment position="end">
                     @squareteam.com
@@ -107,6 +145,9 @@ function SignUpForm() {
               <OutlinedInput
                 id="password"
                 type={password.showPassword ? 'text' : 'password'}
+                name="password"
+                value={payload.password}
+                onChange={handleChange}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -135,6 +176,9 @@ function SignUpForm() {
               <OutlinedInput
                 id="confirm-password"
                 type={confirmPassword.showPassword ? 'text' : 'password'}
+                name="confirm_password"
+                value={payload.confirm_password}
+                onChange={handleChange}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -162,6 +206,9 @@ function SignUpForm() {
               </Typography>
               <TextField
                 placeholder="Hello my name"
+                name="about"
+                value={payload.about}
+                onChange={handleChange}
                 size="small"
                 multiline
                 rows={4}
@@ -182,6 +229,7 @@ function SignUpForm() {
               </Button>
               <Button
                 variant="contained"
+                type="submit"
                 sx={{ width: '75%', textTransform: 'none' }}
               >
                 Register

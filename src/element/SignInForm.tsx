@@ -1,3 +1,5 @@
+import { useHandleChange } from '@/hooks/useHandleChange';
+import { AuthPayload } from '@/types/auth';
 import {
   Card,
   TextField,
@@ -6,18 +8,15 @@ import {
   Checkbox,
   Button,
 } from '@mui/material';
-import React, { ChangeEvent, FormEventHandler } from 'react';
+import React from 'react';
 
-type AuthPayload = {
-  username?: string;
-  password?: string;
+const defaultValue = {
+  username: '',
+  password: '',
 };
-function SignInForm() {
-  const [payload, setPayload] = React.useState<AuthPayload | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+function SignInForm() {
+  const { payload, handleChange } = useHandleChange<AuthPayload>(defaultValue);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +32,7 @@ function SignInForm() {
             label="Your Email / Username"
             name="username"
             onChange={handleChange}
-            value={payload?.username || ''}
+            value={payload?.username}
             variant="outlined"
             size="small"
           />
@@ -43,7 +42,7 @@ function SignInForm() {
             type="password"
             name="password"
             onChange={handleChange}
-            value={payload?.password || ''}
+            value={payload?.password}
             variant="outlined"
             size="small"
           />
