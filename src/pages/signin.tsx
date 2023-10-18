@@ -1,35 +1,37 @@
 import React from 'react';
 import { Grid, Stack, Typography, Button } from '@mui/material';
 import SignInForm from '@/element/SignInForm';
+import Title from '@/element/Title';
+import { useRouter } from 'next/router';
 
 function SignIn() {
+  const router = useRouter();
+  const handleSignUp = () => router.push('/signup');
+
   return (
     <Grid
       container
-      sx={{ minHeight: '100vh', width: '100%' }}
+      sx={{ minHeight: '100vh' }}
       justifyContent="center"
       alignItems="center"
     >
       <Stack direction="column" spacing={7}>
-        <Stack direction="column" sx={{ textAlign: 'center' }} spacing={2}>
-          <Typography variant="h3" component="h2">
-            Sign In
-          </Typography>
-          <Typography variant="body2">
-            Just sign in if you have an account in here. Enjoy our Website
-          </Typography>
-        </Stack>
+        <Title
+          title="Sign In"
+          subtitle="Just sign in if you have an account in here. Enjoy our Website"
+        />
         <SignInForm />
         <Stack direction="row" alignItems="center" justifyContent="center">
           <Typography variant="caption" display="block">
-            Already have an Square account?
+            Do not have an Square account?
           </Typography>
           <Button
             variant="text"
             size="small"
             sx={{ textTransform: 'none', minWidth: '30px' }}
+            onClick={handleSignUp}
           >
-            Log in
+            Sign Up
           </Button>
         </Stack>
       </Stack>

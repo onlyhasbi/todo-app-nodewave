@@ -10,7 +10,7 @@ import React from 'react';
 
 function SignInForm() {
   return (
-    <Card sx={{ maxWidth: 560, width: 560 }}>
+    <Card sx={{ minWidth: 260, maxWidth: 560, width: 560 }}>
       <form style={{ padding: 30 }}>
         <Stack direction="column" spacing={2}>
           <TextField
