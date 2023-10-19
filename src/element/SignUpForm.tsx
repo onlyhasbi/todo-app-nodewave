@@ -54,8 +54,7 @@ function SignUpForm({onSubmit}: Props) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        window.alert(JSON.stringify(payload));
-        setPayload(defaultValue);
+        onSubmit(payload);
     };
 
     return (

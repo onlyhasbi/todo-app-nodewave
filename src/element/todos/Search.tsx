@@ -9,7 +9,6 @@ function Search() {
                 id="search"
                 type='text'
                 placeholder="Search"
-                size='small'
                 endAdornment={
                     <InputAdornment position="start">
                         <SearchIcon/>
@@ -17,7 +16,7 @@ function Search() {
                 }
             />
         </FormControl>
-        <Button variant='contained' sx={{textTransform:'none',width:'30%'}} size='small'>Search</Button>
+        <Button variant='contained' sx={{textTransform:'none',width:'30%'}}>Search</Button>
     </Stack>
 }
 

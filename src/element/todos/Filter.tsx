@@ -4,7 +4,7 @@ import {MenuItem, FormControl, Select, Box} from '@mui/material'
 function Filter() {
 
     return (
-        <FormControl variant="standard" size='small' placeholder='Filter by Status' sx={{width: '40%'}}>
+        <FormControl variant="standard" placeholder='Filter by Status' sx={{width: '40%'}}>
             <Select
                 displayEmpty
                 id="filter-select"

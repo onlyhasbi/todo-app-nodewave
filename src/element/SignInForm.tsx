@@ -11,7 +11,7 @@ import {
 import React from 'react';
 
 const defaultValue = {
-    username: '',
+    email: '',
     password: '',
 };
 
@@ -34,9 +34,9 @@ function SignInForm({onSubmit}: Props) {
                     <TextField
                         fullWidth
                         label="Your Email / Username"
-                        name="username"
+                        name="email"
                         onChange={handleChange}
-                        value={payload?.username}
+                        value={payload?.email}
                         variant="outlined"
                         size="small"
                     />
