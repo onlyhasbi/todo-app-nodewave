@@ -21,7 +21,7 @@ import Badge from '@mui/material/Badge';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NotesIcon from '@mui/icons-material/Notes';
 import {useRouter} from "next/router";
-import { blue,blueGrey } from '@mui/material/colors';
+import {blue, blueGrey, grey} from '@mui/material/colors';
 
 
 type Props = {
@@ -30,7 +30,7 @@ type Props = {
 
 const menus = [
     {icon: <HomeOutlinedIcon/>, label: 'Todos', path: '/'},
-    {icon: <NotesIcon/>, label: 'Add Todo', path: '/add'}]
+    {icon: <NotesIcon/>, label: 'Todo', path: '/add'}]
 
 function Layout({children}: Props) {
     const theme = useTheme();
@@ -109,7 +109,7 @@ function Layout({children}: Props) {
                 </List>
             </Drawer>
 
-            <Box component="main" sx={{flexGrow: 1, p: 3}}>
+            <Box component="main" sx={{flexGrow: 1, p: 3, background: grey[100], minHeight:'100vh'}}>
                 <DrawerHeader/>
                 {children}
             </Box>

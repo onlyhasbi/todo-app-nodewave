@@ -2,6 +2,7 @@ import React from 'react';
 import {MenuItem, FormControl, Select, Box} from '@mui/material'
 
 function Filter() {
+
     return (
         <FormControl variant="standard" size='small' placeholder='Filter by Status' sx={{width: '40%'}}>
             <Select

@@ -1,9 +1,9 @@
 import React from 'react'
 import Layout from "@/element/layout";
-import {Card, Typography, Stack, Button, CardContent, Chip} from "@mui/material";
-import Table from "@/element/todo/Table";
-import Search from "@/element/todo/Search";
-import Filter from "@/element/todo/Filter";
+import {Card, Typography, Stack, CardContent, Chip} from "@mui/material";
+import Table from "@/element/todos/Table";
+import Search from "@/element/todos/Search";
+import Filter from "@/element/todos/Filter";
 
 const columns = [
     {label: "Name", name: 'name'},
