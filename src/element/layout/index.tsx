@@ -23,7 +23,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NotesIcon from '@mui/icons-material/Notes';
 import { blue, blueGrey, grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
-import { isAuthenticated } from '@/utils/storage';
+import { isAuthenticated,logout } from '@/utils/storage';
 import { Menu, MenuItem, Tooltip } from '@mui/material';
 import Browser from '@/utils/browser';
 
@@ -58,6 +58,12 @@ function Layout({ children }: Props) {
   const handleCloseAccount = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    handleCloseAccount();
+    logout();
+    router.push('/signin')
+  }
 
   const authenticated = isAuthenticated();
 
@@ -98,7 +104,6 @@ function Layout({ children }: Props) {
               <Stack
                 direction="row"
                 alignItems="center"
-                spacing={2}
                 sx={{ cursor: 'pointer' }}
               >
                 <Typography variant="body1" component="span">
@@ -163,7 +168,7 @@ function Layout({ children }: Props) {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               >
-                <MenuItem onClick={handleCloseAccount}>
+                <MenuItem onClick={handleLogout}>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>

@@ -30,7 +30,11 @@ export function getUser() {
 
 export function logout() {
   const tokenName = config.token_name;
+  const user = config.user;
   if (tokenName && localStorage.getItem(tokenName)) {
     localStorage.removeItem(tokenName);
+  }
+  if(user && localStorage.getItem(user)) {
+    localStorage.removeItem(user);
   }
 }
