@@ -24,12 +24,9 @@ export default function Home() {
             <Card>
                 <CardContent>
                     <Stack spacing={2}>
-                        <Stack direction="row" justifyContent='space-between' alignItems='center'>
-                            <Button variant="contained">Todo</Button>
-                            <Stack direction='row' alignItems='center' spacing={4}>
-                                <Search/>
-                                <Filter/>
-                            </Stack>
+                        <Stack direction='row' alignItems='center' spacing={4} sx={{width:'50%'}}>
+                            <Search/>
+                            <Filter/>
                         </Stack>
                         <Table data={data} columns={columns}/>
                     </Stack>

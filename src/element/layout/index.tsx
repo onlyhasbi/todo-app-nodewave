@@ -19,11 +19,18 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import NotesIcon from '@mui/icons-material/Notes';
+import {useRouter} from "next/router";
+import { blue,blueGrey } from '@mui/material/colors';
 
 
 type Props = {
     children: React.ReactNode
 }
+
+const menus = [
+    {icon: <HomeOutlinedIcon/>, label: 'Todos', path: '/'},
+    {icon: <NotesIcon/>, label: 'Add Todo', path: '/add'}]
 
 function Layout({children}: Props) {
     const theme = useTheme();
@@ -36,6 +43,8 @@ function Layout({children}: Props) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const router = useRouter()
 
     return (
         <Box sx={{display: 'flex'}}>
@@ -75,24 +84,27 @@ function Layout({children}: Props) {
                     <ListItem sx={{
                         display: 'block',
                     }}>
-                        <ListItemButton
+                        {menus.map(menu => <ListItemButton
                             sx={{
                                 minHeight: 48,
                                 justifyContent: open ? 'initial' : 'center',
                                 px: 2.5,
                             }}
+                            onClick={() => router.push(menu.path)}
+                            key={menu.path}
                         >
                             <ListItemIcon
                                 sx={{
                                     minWidth: 0,
                                     mr: open ? 3 : 'auto',
                                     justifyContent: 'center',
+                                    color:router.pathname === menu.path ? blue[600] : blueGrey[400]
                                 }}
                             >
-                                <HomeOutlinedIcon/>
+                                {menu.icon}
                             </ListItemIcon>
-                            <ListItemText primary='To Do' sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
+                            <ListItemText primary={menu.label} sx={{opacity: open ? 1 : 0}}/>
+                        </ListItemButton>)}
                     </ListItem>
                 </List>
             </Drawer>
