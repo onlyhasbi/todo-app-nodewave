@@ -11,9 +11,7 @@ function Title({ title, subtitle }: Props) {
       <Typography variant="h3" component="h2">
         {title}
       </Typography>
-      <Typography variant="body2">
-        {subtitle}
-      </Typography>
+      <Typography variant="body2">{subtitle}</Typography>
     </Stack>
   );
 }
