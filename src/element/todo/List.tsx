@@ -65,9 +65,9 @@ export default function List({
                 onClick={() => handleIsDone(todo)}
               >
                 {todo.isDone ? (
-                  <CheckCircleOutlinedIcon />
+                  <CheckCircleOutlinedIcon color='success'/>
                 ) : (
-                  <CancelOutlinedIcon />
+                  <CancelOutlinedIcon color='error'/>
                 )}
               </IconButton>
             }

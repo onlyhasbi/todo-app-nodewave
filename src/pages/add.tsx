@@ -94,7 +94,12 @@ function Add() {
                 onDone={handleIsDone}
                 onDelete={handleSelectedDelete}
               />
-              <Button variant="contained" color="error" onClick={handleDelete}>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ textTransform: 'none' }}
+                onClick={handleDelete}
+              >
                 Deleted Selected
               </Button>
             </CardContent>
