@@ -23,8 +23,9 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NotesIcon from '@mui/icons-material/Notes';
 import { blue, blueGrey, grey } from '@mui/material/colors';
 import { useRouter } from 'next/router';
-import { isAuthenticated,logout } from '@/utils/storage';
+import { getUser, isAuthenticated, logout } from '@/utils/storage';
 import { Menu, MenuItem, Tooltip } from '@mui/material';
+import { Profile } from '@/types/auth';
 import Browser from '@/utils/browser';
 
 type Props = {
@@ -40,6 +41,7 @@ function Layout({ children }: Props) {
   const theme = useTheme();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
+  const [user, setUser] = React.useState<Profile|null>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleDrawerOpen = () => {
@@ -62,10 +64,15 @@ function Layout({ children }: Props) {
   const handleLogout = () => {
     handleCloseAccount();
     logout();
-    router.push('/signin')
-  }
+    router.push('/signin');
+  };
 
   const authenticated = isAuthenticated();
+
+  React.useEffect(() => {
+    const userProfile = getUser();
+    if (userProfile) setUser(userProfile);
+  }, []);
 
   React.useEffect(() => {
     if (!authenticated) {
@@ -107,7 +114,7 @@ function Layout({ children }: Props) {
                 sx={{ cursor: 'pointer' }}
               >
                 <Typography variant="body1" component="span">
-                  Admin
+                  {user?.fullName}
                 </Typography>
                 <Badge
                   color="success"
@@ -163,7 +170,7 @@ function Layout({ children }: Props) {
                         zIndex: 0,
                       },
                     },
-                  }
+                  },
                 }}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}

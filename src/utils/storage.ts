@@ -1,5 +1,6 @@
 import { config } from '@/utils/config';
 import { setAuthorization } from '@/services/axios';
+import { Profile } from '@/types/auth';
 
 export function isAuthenticated() {
   try {
@@ -25,7 +26,7 @@ export function getToken() {
 export function getUser() {
   const tokenName = config.user;
   const data = localStorage.getItem(tokenName);
-  return tokenName && data ? JSON.parse(data) : null;
+  return tokenName && data ? JSON.parse(data) as Profile : null;
 }
 
 export function logout() {
