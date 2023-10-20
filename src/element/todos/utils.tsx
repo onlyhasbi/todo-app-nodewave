@@ -24,11 +24,27 @@ export const createParams = (query: TodosQuery) => {
       searchFilters: `{"item":"${query.search}"}`,
     };
   }
+  
   if (query.filter) {
     params = {
       ...params,
       filters: `{"isDone":${query.filter === 'success' ? true : false}}`,
     };
   }
+
+  if (query.page) {
+    params = {
+      ...params,
+      page: query.page,
+    };
+  }
+
+  if (query.rows) {
+    params = {
+      ...params,
+      rows: query.rows,
+    };
+  }
+
   return params;
 };

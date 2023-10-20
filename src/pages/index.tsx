@@ -5,7 +5,7 @@ import Search from '@/element/todos/Search';
 import Table from '@/element/todos/Table';
 import useFetch from '@/hooks/useFetch';
 import { formatResponse, createParams } from '@/element/todos/utils';
-import { ResponseTodo, TodosQuery } from '@/types/todo';
+import { ResponseContent, ResponseTodo, TodosQuery } from '@/types/todo';
 import { url } from '@/utils/config';
 import { Card, CardContent, Stack, Typography } from '@mui/material';
 
@@ -16,11 +16,12 @@ const columns = [
 ];
 
 export default function Home() {
-  const [todosQuery, setTodosQuery] = React.useState<TodosQuery>(
-    {} as TodosQuery
-  );
+  const [todosQuery, setTodosQuery] = React.useState<TodosQuery>({
+    page: 1,
+    rows: 5,
+  } as TodosQuery);
 
-  const { data } = useFetch<ResponseTodo>(
+  const { data } = useFetch<ResponseContent<ResponseTodo>>(
     url.todos,
     {
       params: createParams(todosQuery),
@@ -53,7 +54,14 @@ export default function Home() {
                 }
               />
             </Stack>
-            <Table data={formatResponse(data)} columns={columns} />
+            <Table
+              data={formatResponse(data.entries as unknown as ResponseTodo[])}
+              columns={columns}
+              totalPage={data.totalPage}
+              onPaginate={(page: number) =>
+                setTodosQuery((prev) => ({ ...prev, page }))
+              }
+            />
           </Stack>
         </CardContent>
       </Card>

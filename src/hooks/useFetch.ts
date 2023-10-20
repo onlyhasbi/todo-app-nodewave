@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from '@/services/axios';
 import { AxiosRequestConfig, CanceledError } from 'axios';
+import { ResponseContent } from '@/types/todo';
 
 interface FetchResponse<T> {
   content: {
@@ -17,7 +18,9 @@ const useFetch = <T>(
   requestConfig?: AxiosRequestConfig,
   deps?: any[]
 ) => {
-  const [data, setData] = useState<T[]>([]);
+  const [data, setData] = useState<ResponseContent<T>>(
+    {} as ResponseContent<T>
+  );
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +35,7 @@ const useFetch = <T>(
           ...requestConfig,
         })
         .then((res) => {
-          setData(res.data.content.entries);
+          setData(res.data.content);
           setIsLoading(false);
         })
         .catch((err) => {

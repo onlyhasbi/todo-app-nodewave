@@ -10,6 +10,12 @@ export type Todo = {
   isDone: boolean;
 };
 
+export type ResponseContent<T> = {
+  entries: T[];
+  totalData: number;
+  totalPage: number;
+};
+
 export type ResponseTodo = {
   id: string;
   item: string;
@@ -27,4 +33,6 @@ export type ResponseTodo = {
 export type TodosQuery = {
   search: string;
   filter: string;
+  page: number;
+  rows:number;
 };
