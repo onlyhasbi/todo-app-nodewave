@@ -2,6 +2,8 @@ export type TodoPayload = {
   todo: string;
 };
 
+export type SearchPayload = TodoPayload;
+
 export type Todo = {
   id: string;
   item: string;
@@ -20,4 +22,9 @@ export type ResponseTodo = {
     email: string;
     fullName: string;
   };
+};
+
+export type TodosQuery = {
+  search: string;
+  filter: string;
 };

@@ -27,6 +27,7 @@ export default function List({
     const currentIndex = checked.findIndex(
       (selected) => selected.id === value.id
     );
+    
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
@@ -36,6 +37,10 @@ export default function List({
     }
 
     setChecked(newChecked);
+  };
+
+  const findChecked = (id: string) => {
+    return checked.findIndex((selected) => selected.id === id) !== -1;
   };
 
   React.useEffect(() => {
@@ -65,9 +70,9 @@ export default function List({
                 onClick={() => handleIsDone(todo)}
               >
                 {todo.isDone ? (
-                  <CheckCircleOutlinedIcon color='success'/>
+                  <CheckCircleOutlinedIcon color="success" />
                 ) : (
-                  <CancelOutlinedIcon color='error'/>
+                  <CancelOutlinedIcon color="error" />
                 )}
               </IconButton>
             }
@@ -77,10 +82,7 @@ export default function List({
               <ListItemIcon sx={{ minWidth: 'auto!important' }}>
                 <Checkbox
                   edge="start"
-                  checked={
-                    checked.findIndex((selected) => selected.id === todo.id) !==
-                    -1
-                  }
+                  checked={findChecked(todo.id)}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ 'aria-labelledby': todoId }}

@@ -1,13 +1,13 @@
 import React from 'react';
 import Layout from '@/element/layout';
-import { Card, Typography, Stack, CardContent, Chip } from '@mui/material';
-import Table from '@/element/todos/Table';
-import Search from '@/element/todos/Search';
 import Filter from '@/element/todos/Filter';
-import { get } from '@/services/axios';
+import Search from '@/element/todos/Search';
+import Table from '@/element/todos/Table';
+import useFetch from '@/hooks/useFetch';
+import { formatResponse, createParams } from '@/element/todos/utils';
+import { ResponseTodo, TodosQuery } from '@/types/todo';
 import { url } from '@/utils/config';
-import { ResponseTodo, Todo } from '@/types/todo';
-import { getUser } from '@/utils/storage';
+import { Card, CardContent, Stack, Typography } from '@mui/material';
 
 const columns = [
   { label: 'Name', name: 'name' },
@@ -16,27 +16,17 @@ const columns = [
 ];
 
 export default function Home() {
-  const [todos, setTodos] = React.useState<Todo[]>([]);
+  const [todosQuery, setTodosQuery] = React.useState<TodosQuery>(
+    {} as TodosQuery
+  );
 
-  React.useEffect(() => {
-    const user = getUser();
-    get({ url: url.todos })
-      .then(({ data }) => {
-        const formatData = data?.content?.entries?.map(
-          (todo: ResponseTodo) => ({
-            name: user?.fullName,
-            item: todo.item,
-            isDone: todo.isDone ? (
-              <Chip label="Success" color="success" size="small" />
-            ) : (
-              <Chip label="Pending" color="error" size="small" />
-            ),
-          })
-        );
-        setTodos(formatData);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  const { data } = useFetch<ResponseTodo>(
+    url.todos,
+    {
+      params: createParams(todosQuery),
+    },
+    [todosQuery]
+  );
 
   return (
     <Stack spacing={3}>
@@ -52,10 +42,18 @@ export default function Home() {
               spacing={4}
               sx={{ width: '50%' }}
             >
-              <Search />
-              <Filter />
+              <Search
+                onSearch={(search) =>
+                  setTodosQuery((prev) => ({ ...prev, search }))
+                }
+              />
+              <Filter
+                onFilter={(filter) =>
+                  setTodosQuery((prev) => ({ ...prev, filter }))
+                }
+              />
             </Stack>
-            <Table data={todos} columns={columns} />
+            <Table data={formatResponse(data)} columns={columns} />
           </Stack>
         </CardContent>
       </Card>
