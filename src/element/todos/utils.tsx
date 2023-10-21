@@ -1,6 +1,15 @@
 import { ResponseTodo, TodosQuery } from '@/types/todo';
 import { Chip } from '@mui/material';
 
+type FilterType = {
+  filters?: string;
+  searchFilters?: string;
+  page?: number;
+  rows?: number;
+  orderKey?: string;
+  orderRule?: string;
+};
+
 export const formatResponse = (data: ResponseTodo[]) => {
   return data?.map((todo: ResponseTodo) => ({
     name: todo?.user?.fullName || todo?.id,
@@ -14,7 +23,8 @@ export const formatResponse = (data: ResponseTodo[]) => {
 };
 
 export const createParams = (query: TodosQuery) => {
-  let params = {};
+  let params: FilterType = { orderKey: 'createdAt', orderRule: 'asc' };
+
   if (query.search) {
     params = {
       ...params,
@@ -42,12 +52,6 @@ export const createParams = (query: TodosQuery) => {
       rows: query.rows,
     };
   }
-
-  params = {
-    ...params,
-    orderKey: 'createdAt',
-    orderRule: 'asc',
-  };
 
   return params;
 };
