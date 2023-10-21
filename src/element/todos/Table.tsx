@@ -7,10 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 type Props = {
   data?: any[];
   columns?: any[];
+  isLoading: boolean;
   totalPage: number;
   onPaginate: (page: number) => void;
 };
@@ -18,6 +20,7 @@ type Props = {
 function Table({
   data,
   columns,
+  isLoading,
   totalPage,
   onPaginate: handlePaginate,
 }: Props) {

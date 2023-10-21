@@ -1,17 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from '@/services/axios';
 import { AxiosRequestConfig, CanceledError } from 'axios';
-import { ResponseContent } from '@/types/todo';
+import { FetchResponse, ResponseContent } from '@/types/todo';
 
-interface FetchResponse<T> {
-  content: {
-    entries: T[];
-    totalData: number;
-    totalPage: number;
-  };
-  message: number;
-  errors: string[];
-}
 
 const useFetch = <T>(
   endpoint: string,

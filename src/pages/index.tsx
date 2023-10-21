@@ -1,13 +1,13 @@
-import React from 'react';
 import Layout from '@/element/layout';
 import Filter from '@/element/todos/Filter';
 import Search from '@/element/todos/Search';
 import Table from '@/element/todos/Table';
-import useFetch from '@/hooks/useFetch';
-import { formatResponse, createParams } from '@/element/todos/utils';
-import { ResponseContent, ResponseTodo, TodosQuery } from '@/types/todo';
+import { createParams, formatResponse } from '@/element/todos/utils';
+import { ResponseTodo, TodosQuery } from '@/types/todo';
 import { url } from '@/utils/config';
 import { Card, CardContent, Stack, Typography } from '@mui/material';
+import useFetch from '@/hooks/useFetch';
+import React from 'react';
 
 const columns = [
   { label: 'Name', name: 'name' },
@@ -21,7 +21,7 @@ export default function Home() {
     rows: 5,
   } as TodosQuery);
 
-  const { data } = useFetch<ResponseContent<ResponseTodo>>(
+  const { data, isLoading } = useFetch<ResponseTodo>(
     url.todos,
     {
       params: createParams(todosQuery),
@@ -56,6 +56,7 @@ export default function Home() {
             </Stack>
             <Table
               data={formatResponse(data.entries as unknown as ResponseTodo[])}
+              isLoading={isLoading}
               columns={columns}
               totalPage={data.totalPage}
               onPaginate={(page: number) =>

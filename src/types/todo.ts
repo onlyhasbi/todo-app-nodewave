@@ -16,6 +16,16 @@ export type ResponseContent<T> = {
   totalPage: number;
 };
 
+export type FetchResponse<T> = {
+  content: {
+    entries: T[];
+    totalData: number;
+    totalPage: number;
+  };
+  message: number;
+  errors: string[];
+};
+
 export type ResponseTodo = {
   id: string;
   item: string;
@@ -34,5 +44,5 @@ export type TodosQuery = {
   search: string;
   filter: string;
   page: number;
-  rows:number;
+  rows: number;
 };
