@@ -3,7 +3,7 @@ import { Chip } from '@mui/material';
 
 export const formatResponse = (data: ResponseTodo[]) => {
   return data?.map((todo: ResponseTodo) => ({
-    name: todo.user.fullName,
+    name: todo?.user?.fullName || todo?.id,
     item: todo.item,
     isDone: todo.isDone ? (
       <Chip label="Success" color="success" size="small" />

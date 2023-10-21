@@ -56,7 +56,6 @@ function Add() {
       url: `${url.todos}/${todo.id}/mark`,
       data: { action: todo.isDone ? 'DONE' : 'UNDONE' },
     })
-      .then(({ data }) => console.log(data))
       .catch((e) => console.log(e));
   };
 
