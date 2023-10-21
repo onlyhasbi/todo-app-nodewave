@@ -43,5 +43,11 @@ export const createParams = (query: TodosQuery) => {
     };
   }
 
+  params = {
+    ...params,
+    orderKey: 'createdAt',
+    orderRule: 'asc',
+  };
+
   return params;
 };
