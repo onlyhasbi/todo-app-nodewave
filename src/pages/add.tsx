@@ -19,7 +19,13 @@ function Add() {
   const [deletedTodos, setDeletedTodos] = React.useState<Todo[]>([]);
 
   React.useEffect(() => {
-    get({ url: url.todos })
+    get({
+      url: url.todos,
+      params: {
+        orderKey: 'createdAt',
+        orderRule: 'asc',
+      },
+    })
       .then(({ data }) => {
         const formatData = data?.content?.entries?.map(
           (todo: ResponseTodo) => ({
@@ -55,8 +61,7 @@ function Add() {
     put({
       url: `${url.todos}/${todo.id}/mark`,
       data: { action: todo.isDone ? 'DONE' : 'UNDONE' },
-    })
-      .catch((e) => console.log(e));
+    }).catch((e) => console.log(e));
   };
 
   const handleSelectedDelete = (todos: Todo[]) => setDeletedTodos(todos);
